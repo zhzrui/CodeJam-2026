@@ -6,15 +6,21 @@ using System.Collections;
 
 public class EnemyChase : MonoBehaviour
 {
+    [Header("Player References")]
     [SerializeField] private Transform player;
+    [SerializeField] private Transform playerCamera;
+    [SerializeField] private float angleThreshold = 0.75f; // angle threshold for player looking at enemy
+    private Transform enemyPosition;
     private NavMeshAgent agent;
 
     // line of sight details
+    [Header("Line of Sight")]
     [SerializeField] private float visionDistance = 10f;
-    [SerializeField] private float visionAngle = 45f;
+    [SerializeField] private float visionAngle = 360f;
     [SerializeField] private LayerMask obstacleMask; // idk why i have this but we might need this, loadbearing layermask
 
     // chase
+    [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 5f;
     [SerializeField] private float stoppingDistance = 1.5f;
 
@@ -23,8 +29,8 @@ public class EnemyChase : MonoBehaviour
     [Header("Patrol")]
     private bool isPatrolling = false;
     [SerializeField] private Transform[] patrolPoints;
-    [SerializeField] private float patrolSpeed = 2f;
-    [SerializeField] private float waitTime = 2f;
+    [SerializeField] private float patrolSpeed = 3.5f;
+    [SerializeField] private float waitTime = 0f;
     private float patrolStoppingDistance;
 
     private int currentPatrolIndex = 0;
@@ -34,16 +40,17 @@ public class EnemyChase : MonoBehaviour
     // stun
     // idk we can tweak this
     [Header("Stun (durations)")]
-    [SerializeField] private float minStunDuration = 1f;
+    [SerializeField] private float minStunDuration = 0f;
     [SerializeField] private float maxStunDuration = 5f;
     [SerializeField] private float maxStunDistance = 10f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    //void Start()
-    //{
-
-    //}
+    void Start()
+    {
+        // get enemy position
+        enemyPosition = GetComponent<Transform>();
+    }
 
     //ENEMY STATES
     public enum EnemyStates
@@ -195,6 +202,16 @@ public class EnemyChase : MonoBehaviour
     {
         if (state == EnemyStates.Inactive) return; // ignore if enemy alr stunned
         if (player == null) return;
+        // ignore if player not looking at enemy
+        Vector3 directionToEnemy = (enemyPosition.position - playerCamera.position).normalized;
+        float dotProduct = Vector3.Dot(playerCamera.forward, directionToEnemy);
+
+        if (dotProduct < angleThreshold)
+        {
+            Debug.Log("player not looking at enemy, stun ignored");
+            return;
+        }
+        
 
         float distance = Vector3.Distance(transform.position, player.position);
         float t = Mathf.Clamp01(distance / maxStunDistance); // normalized dist -> interpolation factor
@@ -203,6 +220,11 @@ public class EnemyChase : MonoBehaviour
         // if enemy closer -> stun duration longer
         // LINEAR INTERPOLATION..............
         float duration = Mathf.Lerp(maxStunDuration, minStunDuration, t); 
+        if (duration <= 0f)
+        {
+            Debug.Log("enemy too far away, stun ignored");
+            return;
+        }
 
         StartCoroutine(StunCoroutine(duration));
     }

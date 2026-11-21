@@ -26,6 +26,8 @@ public class Flashbang : MonoBehaviour
     {
         if (value.isPressed)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.cameraSFX);
+            
             StartCoroutine(FlashEffect());
             if (enemyChaseScript != null)
             {
