@@ -9,7 +9,7 @@ public class EnemyChase : MonoBehaviour
     [Header("Player References")]
     [SerializeField] private Transform player;
     [SerializeField] private Transform playerCamera;
-    [SerializeField] private float angleThreshold = 0.5f; // angle threshold for player looking at enemy
+    [SerializeField] private float angleThreshold = 0.75f; // angle threshold for player looking at enemy
     private Transform enemyPosition;
     private NavMeshAgent agent;
 

@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 87c20e88510abd8489c14c7e2f6508bd, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!65 &59388617
 BoxCollider:
@@ -19649,8 +19649,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
   player: {fileID: 187940299}
+  playerCamera: {fileID: 1126405604}
+  angleThreshold: 0.75
   visionDistance: 10
-  visionAngle: 45
+  visionAngle: 360
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -19759,9 +19761,9 @@ MonoBehaviour:
   - {fileID: 186806243}
   - {fileID: 2008815554}
   - {fileID: 652066982}
-  patrolSpeed: 2
+  patrolSpeed: 3.5
   waitTime: 0
-  minStunDuration: 1
+  minStunDuration: 0
   maxStunDuration: 5
   maxStunDistance: 10
 --- !u!195 &1263420742
