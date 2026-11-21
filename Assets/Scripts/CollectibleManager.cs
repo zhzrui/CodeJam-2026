@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
@@ -9,16 +10,45 @@ public class CollectibleManager : MonoBehaviour
     // random spawn?
 
     [SerializeField] private GameObject coinPrefab;
-    
+
+    public int collectibleCount = 0;
+    public TextMeshProUGUI collectibleText;
+    // FOR LATER: ADD COLLECTED NOISE
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //void Start()
+    //{
+
+    //}
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    //{
+
+    //}
+
+    // PLAYER COLLECTS OBJECTS
+    // despawn collectible on player collision
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Collectible"))
+        {
+            collectibleCount++;
+            UpdateCollectibleCountUI();
+            Destroy(other.gameObject);
+        }
     }
+    
+    // updating ui
+    private void UpdateCollectibleCountUI()
+    {
+        if (collectibleText != null)
+        {
+            collectibleText.text = "Collectec: " + collectibleCount;
+        }
+    }
+
 }
