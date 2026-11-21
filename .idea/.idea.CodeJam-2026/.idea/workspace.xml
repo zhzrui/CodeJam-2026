@@ -59,7 +59,7 @@
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.6f1\Editor\Unity.exe" />
@@ -106,6 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1795226682446</updated>
       <workItem from="1795226683161" duration="21000" />
+      <workItem from="1795301869992" duration="3000" />
     </task>
     <servers />
   </component>
