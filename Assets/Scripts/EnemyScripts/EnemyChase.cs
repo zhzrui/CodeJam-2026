@@ -3,6 +3,7 @@ using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class EnemyChase : MonoBehaviour
 {
@@ -44,12 +45,21 @@ public class EnemyChase : MonoBehaviour
     [SerializeField] private float maxStunDuration = 5f;
     [SerializeField] private float maxStunDistance = 10f;
 
+    // cinemachine shake source
+    [Header("Camera Shake")]
+    [SerializeField] private float shakeInterval = 0.5f; // seconds
+    private float lastShakeTime = 0f; // track last shake time
+    
+    private CinemachineImpulseSource impulseSource;
+    // PUT THIS WHEREVER YOU CALL THE SOUND: CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // get enemy position
         enemyPosition = GetComponent<Transform>();
+
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     //ENEMY STATES
@@ -194,6 +204,15 @@ public class EnemyChase : MonoBehaviour
     {
         if (player == null) return;
         agent.SetDestination(player.position); // keep updating player's position
+        
+        // shake camera on an interval
+        
+        if (Time.time - lastShakeTime >= shakeInterval)
+        {
+            CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
+            lastShakeTime = Time.time;
+        }
+        
     }
 
     // STUN
