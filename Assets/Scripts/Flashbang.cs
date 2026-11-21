@@ -6,8 +6,8 @@ public class Flashbang : MonoBehaviour
 {
     [Header("Flashbang Settings")]
     [SerializeField] private Light lightSource;
-    [SerializeField] private float flashDuration = 1f;
-    [SerializeField] private float flashIntensity = 5f;
+    [SerializeField] private float flashDuration = 0.25f;
+    [SerializeField] private float flashIntensity = 500000f;
 
     private EnemyChase enemyChaseScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,7 +41,7 @@ public class Flashbang : MonoBehaviour
         lightSource.intensity = flashIntensity;
         lightSource.gameObject.SetActive(true);
         
-        // Wait one frame so the player sees the peak flash before fading begins
+        // Wait one frame
         yield return null;
 
         float elapsedTime = 0f;
@@ -51,7 +51,7 @@ public class Flashbang : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / flashDuration);
             
-            // Exponential curve: drops from 1,000,000 to ~1,000 quickly, then fades smoothly
+            // Exponential curve drops from 500 000 to small value quickly, then fade slower
             float curve = Mathf.Pow(1f - t, 4f); 
             lightSource.intensity = flashIntensity * curve;
             
