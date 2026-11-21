@@ -10,7 +10,21 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ea3bf98-0af4-49fa-9f9d-bf93ee72afd4" name="Changes" comment="" />
+    <list default="true" id="5ea3bf98-0af4-49fa-9f9d-bf93ee72afd4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraAsset.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraAsset.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraBaseMat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraBaseMat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraTexture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraTexture.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CashMaterial.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/CashMaterial.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/cashtextureINR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/cashtextureINR.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/stackofCash.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/stackofCash.fbx.meta" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +51,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "aditya",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
