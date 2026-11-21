@@ -18,4 +18,15 @@ public class Collectible : MonoBehaviour
     {
         
     }
+
+    // PLAYER COLLECTS OBJECTS
+    // despawn collectible on player collision
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            FindFirstObjectByType<CollectibleManager>().UpdateCollectibleCountUI();
+            Destroy(gameObject);
+        }
+    }
 }
