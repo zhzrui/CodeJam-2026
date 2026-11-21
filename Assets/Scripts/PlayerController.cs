@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine; 
 
-public class KennyFirstPersonMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement Speeds")]
     [SerializeField] private float walkSpeed = 2f;
