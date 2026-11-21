@@ -220,6 +220,11 @@ public class EnemyChase : MonoBehaviour
         // if enemy closer -> stun duration longer
         // LINEAR INTERPOLATION..............
         float duration = Mathf.Lerp(maxStunDuration, minStunDuration, t); 
+        if (duration <= 0f)
+        {
+            Debug.Log("enemy too far away, stun ignored");
+            return;
+        }
 
         StartCoroutine(StunCoroutine(duration));
     }
