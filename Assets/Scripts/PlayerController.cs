@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleStamina();
         Move();
+        HandleFootsteps();
         LookAndBob();
         UpdateFov();
     }
@@ -217,5 +218,21 @@ public class PlayerController : MonoBehaviour
         var lens = cinemachineCamera.Lens;
         lens.FieldOfView = Mathf.Lerp(lens.FieldOfView, targetFov, fovTransitionSpeed * Time.deltaTime);
         cinemachineCamera.Lens = lens;
+    }
+
+    // FOOTSTEP SFX
+    // MAKIN IT LOOP
+    private void HandleFootsteps()
+    {
+        bool isPlayingFootsteps = controller.isGrounded && controller.velocity.magnitude > 0.2f;
+
+        if (isPlayingFootsteps)
+        {
+            AudioManager.Instance.PlayPlayerRunning(AudioManager.Instance.runningSFX);
+        }
+        else
+        {
+            AudioManager.Instance.StopPlayerRunning();
+        }
     }
 }
