@@ -39,7 +39,7 @@ Material:
     m_Floats:
     - _DitherStrength: 0.5
     - _Levels: 8
-    - _Pixel_Size: 2
+    - _Pixel_Size: 1
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
