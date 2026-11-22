@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: -3524711249972080028}
   - {fileID: 736636086816906523}
   - {fileID: -3976497221746850219}
+  - {fileID: 4396341709383148824}
 --- !u!114 &736636086816906523
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -199,6 +200,25 @@ MonoBehaviour:
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
+--- !u!114 &4396341709383148824
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
+  m_Name: WhiteBalance
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.WhiteBalance
+  active: 1
+  temperature:
+    m_OverrideState: 1
+    m_Value: -32
+  tint:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &8372071216459172230
 MonoBehaviour:
   m_ObjectHideFlags: 3
