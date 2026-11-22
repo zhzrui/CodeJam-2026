@@ -3,6 +3,7 @@ using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class EnemyChase : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class EnemyChase : MonoBehaviour
     [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 5f;
     [SerializeField] private float stoppingDistance = 1.5f;
+    //private bool isChaseMusicPlaying = false;
 
 
     // patrol points
@@ -44,12 +46,21 @@ public class EnemyChase : MonoBehaviour
     [SerializeField] private float maxStunDuration = 5f;
     [SerializeField] private float maxStunDistance = 10f;
 
+    // cinemachine shake source
+    [Header("Camera Shake")]
+    [SerializeField] private float shakeInterval = 0.5f; // seconds
+    private float lastShakeTime = 0f; // track last shake time
+    
+    private CinemachineImpulseSource impulseSource;
+    // PUT THIS WHEREVER YOU CALL THE SOUND: CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // get enemy position
         enemyPosition = GetComponent<Transform>();
+
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     //ENEMY STATES
@@ -128,6 +139,8 @@ public class EnemyChase : MonoBehaviour
     {
         if (patrolPoints == null || patrolPoints.Length == 0) return;
 
+        //AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic); // force ambiance music
+
         agent.speed = patrolSpeed;
 
         // waiting at patrol point
@@ -185,6 +198,9 @@ public class EnemyChase : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.stoppingDistance = stoppingDistance;
 
+        AudioManager.Instance.PlayRandomScreams(); // monster screeches when sees player
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music
+
         // set dest to player
         agent.SetDestination(player.position);
         Debug.Log("started chasing player");
@@ -194,6 +210,23 @@ public class EnemyChase : MonoBehaviour
     {
         if (player == null) return;
         agent.SetDestination(player.position); // keep updating player's position
+        
+        // shake camera on an interval
+
+        if (Time.time - lastShakeTime >= shakeInterval)
+        {
+            CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
+            lastShakeTime = Time.time;
+        }
+
+        //if (!isChaseMusicPlaying)
+        //{
+        //    AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic);
+        //    isChaseMusicPlaying = true;
+        //}
+
+        //AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music on a longer timer
+
     }
 
     // STUN
@@ -238,6 +271,7 @@ public class EnemyChase : MonoBehaviour
     private IEnumerator StunCoroutine(float duration)
     {
         state = EnemyStates.Inactive; // stun state
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
 
         // stop enemy
         agent.isStopped = true;

@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Music")]
     public AudioClip backgroundMusic;
+    public AudioClip chaseMusic;
 
     [Header("SFX")]
     public AudioClip runningSFX;
@@ -19,6 +21,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip screamSFX;
     public AudioClip collectedSFX;
     public AudioClip collectibleIdleSFX;
+
+    [Header("Snail - Scream Variations")]
+    public AudioClip[] audioClips;
 
     private void Awake()
     {
@@ -54,6 +59,13 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(sfxClip);
     }
 
+    // SNAIL SCREAM VARIATIONS
+    public void PlayRandomScreams()
+    {
+        if (audioClips == null || audioClips.Length == 0) return;
 
+        AudioClip clip = audioClips[Random.Range(0, audioClips.Length)]; // use a random scream audio clip
+        sfxSource.PlayOneShot(clip);
+    }
 
 }
