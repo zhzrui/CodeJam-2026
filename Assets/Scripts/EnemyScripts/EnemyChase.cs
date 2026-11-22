@@ -138,6 +138,8 @@ public class EnemyChase : MonoBehaviour
     {
         if (patrolPoints == null || patrolPoints.Length == 0) return;
 
+        //AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic); // force ambiance music
+
         agent.speed = patrolSpeed;
 
         // waiting at patrol point
@@ -195,6 +197,8 @@ public class EnemyChase : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.stoppingDistance = stoppingDistance;
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.screamSFX); // monster screeches when sees player
+
         // set dest to player
         agent.SetDestination(player.position);
         Debug.Log("started chasing player");
@@ -206,13 +210,16 @@ public class EnemyChase : MonoBehaviour
         agent.SetDestination(player.position); // keep updating player's position
         
         // shake camera on an interval
-        
+
         if (Time.time - lastShakeTime >= shakeInterval)
         {
             CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
             lastShakeTime = Time.time;
         }
+
         
+        //AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music on a longer timer
+
     }
 
     // STUN
