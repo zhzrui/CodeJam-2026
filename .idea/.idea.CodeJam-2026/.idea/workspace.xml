@@ -8,12 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d14b6f7-d06a-4c8e-9d95-f377e7978cc1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Camera/CameraBaseMat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Camera/CameraBaseMat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Shaders/PixelateMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Shaders/PixelateMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene_Saucy.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene_Saucy.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene_Saucy/Global Volume Profile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene_Saucy/Global Volume Profile.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal/Global Volume Profile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal/Global Volume Profile.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
