@@ -196,6 +196,8 @@ public class EnemyChase : MonoBehaviour
     {
         // stop patrolling behaviour and start dashing towards player :sob:
         state = EnemyStates.Chasing;
+
+        if (chaseLight != null) chaseLight.enabled = true;
         
         isPatrolling = false;
         waitingAtPoint = false ;
