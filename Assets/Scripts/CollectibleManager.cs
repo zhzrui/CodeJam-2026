@@ -12,6 +12,7 @@ public class CollectibleManager : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private int maxCollectibles = 10;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Spin iconSpin;
 
     // private spawn points list to keep track of which spawn points have been used, 
     // might want to pass this over to the enemy patrol points
@@ -59,6 +60,8 @@ public class CollectibleManager : MonoBehaviour
         collectibleCount++;
         remainingCount--;
         UpdateCollectibleCountUI();
+        
+        if (iconSpin != null) iconSpin.PlayFastSpins();
     }
 
     public void UpdateCollectibleCountUI()
