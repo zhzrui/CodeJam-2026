@@ -62,6 +62,12 @@ public class CollectibleManager : MonoBehaviour
         UpdateCollectibleCountUI();
         
         if (iconSpin != null) iconSpin.PlayFastSpins();
+
+        // WIN CONDITION
+        if (remainingCount <= 0)
+        {
+            GameManager.Instance.WinGame();
+        }
     }
 
     public void UpdateCollectibleCountUI()
