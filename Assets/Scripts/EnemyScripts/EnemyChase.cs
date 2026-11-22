@@ -24,6 +24,7 @@ public class EnemyChase : MonoBehaviour
     [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 5f;
     [SerializeField] private float stoppingDistance = 1.5f;
+    //private bool isChaseMusicPlaying = false;
 
 
     // patrol points
@@ -197,7 +198,8 @@ public class EnemyChase : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.stoppingDistance = stoppingDistance;
 
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.screamSFX); // monster screeches when sees player
+        AudioManager.Instance.PlayRandomScreams(); // monster screeches when sees player
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music
 
         // set dest to player
         agent.SetDestination(player.position);
@@ -217,7 +219,12 @@ public class EnemyChase : MonoBehaviour
             lastShakeTime = Time.time;
         }
 
-        
+        //if (!isChaseMusicPlaying)
+        //{
+        //    AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic);
+        //    isChaseMusicPlaying = true;
+        //}
+
         //AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music on a longer timer
 
     }
@@ -264,6 +271,7 @@ public class EnemyChase : MonoBehaviour
     private IEnumerator StunCoroutine(float duration)
     {
         state = EnemyStates.Inactive; // stun state
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
 
         // stop enemy
         agent.isStopped = true;
