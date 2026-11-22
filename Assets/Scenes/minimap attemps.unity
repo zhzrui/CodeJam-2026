@@ -3258,7 +3258,7 @@ MonoBehaviour:
   exhaustionThreshold: 1.5
   cameraTarget: {fileID: 1126405604}
   cinemachineCamera: {fileID: 131169476}
-  mouseSens: 1
+  mouseSens: 0.2
   bobFrequency: 8
   bobAmplitude: 0.08
   strafeTiltAmount: 1.5
