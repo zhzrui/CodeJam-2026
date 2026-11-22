@@ -10,4 +10,10 @@ public class TitleScreenManager : MonoBehaviour
     public void QuitGame(){
         Application.Quit();
     }
+
+    public void ReturnToMain()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
+
 }
