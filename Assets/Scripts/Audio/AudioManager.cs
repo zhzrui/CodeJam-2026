@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Music")]
     public AudioClip backgroundMusic;
+    public AudioClip chaseMusic;
 
     [Header("SFX")]
     public AudioClip runningSFX;
