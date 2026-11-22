@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
@@ -19,16 +18,16 @@ public class CollectibleManager : MonoBehaviour
     private List<Transform> spawnPointsList;
 
     public int collectibleCount = 0;
+
+    public int remainingCount;
+
     public TextMeshProUGUI collectibleText;
-    // FOR LATER: ADD COLLECTED NOISE
-
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spawnPointsList = new List<Transform>(spawnPoints);
+        remainingCount = maxCollectibles;
         UpdateCollectibleCountUI();
         for (int i = 0; i < maxCollectibles; i++)
         {
@@ -55,11 +54,18 @@ public class CollectibleManager : MonoBehaviour
     }
     
     // updating ui
+
+    public void OnCollected() {
+        collectibleCount++;
+        remainingCount--;
+        UpdateCollectibleCountUI();
+    }
+
     public void UpdateCollectibleCountUI()
     {
         if (collectibleText != null)
         {
-            collectibleText.text = "Collected: " + collectibleCount;
+            collectibleText.text = "Left: " + remainingCount;
         }
     }
 

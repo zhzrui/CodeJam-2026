@@ -27,7 +27,7 @@ public class Collectible : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX(AudioManager.Instance.collectedSFX);
             
-            FindFirstObjectByType<CollectibleManager>().UpdateCollectibleCountUI();
+            FindFirstObjectByType<CollectibleManager>().OnCollected();
             
             Destroy(gameObject);
         }
