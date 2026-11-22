@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1375446141029540124
+--- !u!114 &-5033183221496906225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16,7 +16,7 @@ MonoBehaviour:
   injectionPoint: 600
   fetchColorBuffer: 1
   requirements: 0
-  passMaterial: {fileID: 2100000, guid: 48617cebf364796419da115cc9d4302d, type: 2}
+  passMaterial: {fileID: 2100000, guid: 7f236f0f303559c48966ff4ffe653b1f, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1
@@ -46,8 +46,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: -1375446141029540124}
-  m_RendererFeatureMap: ad6b866f10d7b46ce49e40ac056fe9ec
+  - {fileID: -5033183221496906225}
+  m_RendererFeatureMap: ad6b866f10d7b46c0f7e38e9868a26ba
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}

@@ -8,37 +8,29 @@
 #define PIXEL_ART_QUANTIZE_INCLUDED
 
 // The next three functions are helpers
-float3 PAQ_LinearSRGBToXYZ(float3 rgb)
+float3 PAQ_LinearToSRGB(float3 c)
 {
-    // Linear sRGB (D65) -> CIE XYZ
-    const float3x3 m = float3x3(
-        0.4124564, 0.3575761, 0.1804375,
-        0.2126729, 0.7151522, 0.0721750,
-        0.0193339, 0.1191920, 0.9503041
-    );
-    return mul(m, rgb);
+    c = saturate(c);
+    return lerp(c * 12.92, 1.055 * pow(c, 1.0 / 2.4) - 0.055, step(0.0031308, c));
 }
 
-float3 PAQ_XYZToLab(float3 xyz)
+float3 PAQ_SRGBToLinear(float3 c)
 {
-    // Normalise by D65 white point
-    xyz /= float3(0.95047, 1.0, 1.08883);
-
-    // Component-wise piecewise function (written without the vector ternary
-    // so it also compiles cleanly under HLSL 2021 rules)
-    float3 cubeRoot = pow(max(xyz, 0.0), 1.0 / 3.0);
-    float3 linearPart = 7.787 * xyz + 16.0 / 116.0;
-    float3 f = lerp(linearPart, cubeRoot, step(0.008856, xyz));
-
-    float L = 116.0 * f.y - 16.0;
-    float a = 500.0 * (f.x - f.y);
-    float b = 200.0 * (f.y - f.z);
-    return float3(L, a, b);
+    return lerp(c / 12.92, pow((c + 0.055) / 1.055, 2.4), step(0.04045, c));
 }
 
-float3 PAQ_LinearToLab(float3 rgb)
+// 4x4 Bayer matrix, returns a threshold in (-0.5, 0.5)
+float PAQ_Bayer4x4(float2 blockCoord)
 {
-    return PAQ_XYZToLab(PAQ_LinearSRGBToXYZ(saturate(rgb)));
+    static const float bayer[16] =
+    {
+        0.0,  8.0,  2.0, 10.0,
+       12.0,  4.0, 14.0,  6.0,
+        3.0, 11.0,  1.0,  9.0,
+       15.0,  7.0, 13.0,  5.0
+   };
+    uint2 p = (uint2)blockCoord & 3u;
+    return (bayer[p.y * 4 + p.x] + 0.5) / 16.0 - 0.5;
 }
 
 // ----- THE ACTUAL FUNCTIONS USED IN THE NODES START HERE -------
@@ -47,46 +39,30 @@ float3 PAQ_LinearToLab(float3 rgb)
 // Returns the UV of the centre of the block this fragment belongs to, so
 // every fragment in a block samples the same source pixel (= point filtering).
 
-void PixelateUV_float(float2 UV, float2 screenSize, float pixelSize, out float2 SnappedUV)
+void PixelateUV_float(float2 UV, float2 ScreenSize, float PixelSize,
+                      out float2 SnappedUV, out float2 BlockCoord)
 {
-    float size = max(1.0, pixelSize);
-    float2 pixelCoord = UV * screenSize;
-    float2 blockCentre = (floor(pixelCoord / size) + 0.5) * size;
-    // Keep the last partial block on screen
-    blockCentre = min(blockCentre, screenSize - 0.5);
-    SnappedUV = blockCentre / screenSize;
+    float size = max(1.0, PixelSize);
+    float2 pixelCoord = UV * ScreenSize;
+    BlockCoord = floor(pixelCoord / size);
+
+    float2 blockCentre = (BlockCoord + 0.5) * size;
+    blockCentre = min(blockCentre, ScreenSize - 0.5); // keep the last partial block on screen
+    SnappedUV = blockCentre / ScreenSize;
 }
 
-// 2) Palette quantization
-// The palette size is read from the texture width automatically (max 256).
-
-void QuantizeToPalette_float(float3 Colour, UnityTexture2D Palette, bool ActivateCIELab, out float3 Out)
+// 2) quantization
+void QuantizeLevels_float(float3 Color, float Levels, float2 BlockCoord, float DitherStrength,
+                          out float3 Out)
 {
-    int count = min((int)Palette.texelSize.z, 256);
-    bool lab = ActivateCIELab;
-    float3 target = lab ? PAQ_LinearToLab(Colour) : saturate(Colour);
+    float steps = max(2.0, round(Levels)) - 1.0;
+    float3 srgb = PAQ_LinearToSRGB(Color);
 
-    float bestDist = 1e20;
-    float3 bestColor = Colour;
+    // Nudge by up to +/- half a step before rounding -> ordered dither
+    srgb += PAQ_Bayer4x4(BlockCoord) * saturate(DitherStrength) / steps;
 
-    [loop]
-    for (int i = 0; i < count; i++)
-    {
-        // Load = exact texel fetch, no filtering. sRGB textures come back linear.
-        float3 p = LOAD_TEXTURE2D(Palette.tex, int2(i, 0)).rgb;
-        float3 pCompare = lab ? PAQ_LinearToLab(p) : p;
-
-        float3 d = target - pCompare;
-        float dist = dot(d, d); // squared distance is enough for "nearest"
-
-        if (dist < bestDist)
-        {
-            bestDist = dist;
-            bestColor = p;
-        }
-    }
-
-    Out = bestColor;
+    srgb = saturate(round(srgb * steps) / steps);
+    Out = PAQ_SRGBToLinear(srgb);
 }
 
 #endif // PIXEL_ART_QUANTIZE_INCLUDED
