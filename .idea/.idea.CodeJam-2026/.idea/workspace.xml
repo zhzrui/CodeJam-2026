@@ -7,7 +7,9 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d14b6f7-d06a-4c8e-9d95-f377e7978cc1" name="Changes" comment="" />
+    <list default="true" id="5d14b6f7-d06a-4c8e-9d95-f377e7978cc1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Coin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Coin.prefab" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

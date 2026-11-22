@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _DitherStrength: 0.5
-    - _Levels: 4
+    - _Levels: 8
     - _Pixel_Size: 1
     m_Colors: []
   m_BuildTextureStacks: []
