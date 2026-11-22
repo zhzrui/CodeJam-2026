@@ -16465,6 +16465,7 @@ MonoBehaviour:
   screamSFX: {fileID: 8300000, guid: 8203cbd65c706d247b234c9926a421e2, type: 3}
   collectedSFX: {fileID: 8300000, guid: afeef023c44a63043839c014d2b8db23, type: 3}
   collectibleIdleSFX: {fileID: 8300000, guid: 712ed2041f2314f4c82bcae480d6ff1f, type: 3}
+  audioClips: []
 --- !u!4 &1067402011
 Transform:
   m_ObjectHideFlags: 0
