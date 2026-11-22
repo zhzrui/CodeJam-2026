@@ -2961,7 +2961,7 @@ MonoBehaviour:
   walkSpeed: 2
   sprintSpeed: 4.5
   acceleration: 14
-  jumpHeight: 1.1
+  jumpHeight: 0
   gravity: -22
   maxStamina: 10
   staminaDrainRate: 0
@@ -6921,7 +6921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &451443226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20034,7 +20034,7 @@ MonoBehaviour:
   visionAngle: 360
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   chaseSpeed: 4.5
   stoppingDistance: 1.5
   patrolPoints:
@@ -20142,6 +20142,15 @@ MonoBehaviour:
   - {fileID: 652066982}
   patrolSpeed: 3.5
   waitTime: 0
+  lostVisionDuration: 5
+  searchDuration: 15
+  searchRadius: 5
+  searchSpeed: 4
+  repickInterval: 3
+  convergeInterval: 25
+  convergeSpeed: 7
+  convergeArrivalDistance: 5
+  maxConvergeDuration: 10
   minStunDuration: 0
   maxStunDuration: 5
   maxStunDistance: 10
