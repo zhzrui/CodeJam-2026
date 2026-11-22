@@ -58,6 +58,10 @@ public class EnemyChase : MonoBehaviour
     private CinemachineImpulseSource impulseSource;
     // PUT THIS WHEREVER YOU CALL THE SOUND: CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
 
+    [Header("Lose Animation")]
+    [SerializeField] private float jumpscareDuration = 1.75f;
+    private bool isJumpscaring = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -114,6 +118,7 @@ public class EnemyChase : MonoBehaviour
         //{
         //    Debug.Log("spotted the player, now chasing");
         //}
+        if (isJumpscaring) return;
         if (!agent.isOnNavMesh) return;
 
         switch (state)
@@ -312,5 +317,30 @@ public class EnemyChase : MonoBehaviour
         Debug.Log("enemy recovered and returning to patrol");
     }
 
+    // lose condition player dies
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (state == EnemyStates.Inactive) return;
+
+        if (other.CompareTag("Player"))
+        {
+            agent.isStopped = true; // stop enemy movement
+            GameManager.Instance.LoseGame();
+        }
+    }
+
+    private IEnumerator JumpscareCoroutine()
+    {
+        isJumpscaring = true;
+        
+        agent.isStopped = true;
+        agent.ResetPath();
+
+        state = EnemyStates.Inactive;
+        animator.SetTrigger("Jumpscare");
+        yield return new WaitForSeconds(jumpscareDuration);
+        GameManager.Instance.LoseGame(); // load lose scene
+    }
 
 }
