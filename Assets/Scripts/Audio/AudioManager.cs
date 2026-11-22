@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource runningSource;
 
     [Header("Music")]
     public AudioClip backgroundMusic;
@@ -66,6 +67,23 @@ public class AudioManager : MonoBehaviour
 
         AudioClip clip = audioClips[Random.Range(0, audioClips.Length)]; // use a random scream audio clip
         sfxSource.PlayOneShot(clip);
+    }
+
+    // player running
+    public void PlayPlayerRunning(AudioClip clip)
+    {
+        if (runningSource.isPlaying) return;
+        runningSource.clip = clip;
+        runningSource.loop = true;
+        runningSource.Play();
+    }
+
+    public void StopPlayerRunning()
+    {
+        if (runningSource.isPlaying)
+        {
+            runningSource.Stop();
+        }
     }
 
 }
