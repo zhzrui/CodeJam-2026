@@ -19917,6 +19917,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 991500096233503136, guid: c32e76dd65cd53f4f95a41d38286497d, type: 3}
   m_PrefabInstance: {fileID: 1221556478}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1230407852 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3079579052710532173, guid: e7179a0d652d842bb97e5d113112249f, type: 3}
+  m_PrefabInstance: {fileID: 1391468966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1232981579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20540,7 +20545,8 @@ MonoBehaviour:
   playerCamera: {fileID: 1126405604}
   angleThreshold: 0.75
   chaseLight: {fileID: 1307518846}
-  visionDistance: 10
+  animator: {fileID: 1230407852}
+  visionDistance: 5
   visionAngle: 360
   obstacleMask:
     serializedVersion: 2
@@ -21184,7 +21190,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 100
+  m_Intensity: 50
   m_Range: 10
   m_SpotAngle: 70
   m_InnerSpotAngle: 60
