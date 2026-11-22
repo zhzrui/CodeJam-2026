@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using Unity.Cinemachine;
+using System.Globalization;
 
 public class EnemyChase : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class EnemyChase : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private Light chaseLight;
     [SerializeField] private Animator animator;
+    private bool isJumpscaring = false;
+    private float jumpscareDuration = 0.67f;
 
     // line of sight details
     [Header("Line of Sight")]
@@ -58,10 +61,6 @@ public class EnemyChase : MonoBehaviour
     private CinemachineImpulseSource impulseSource;
     // PUT THIS WHEREVER YOU CALL THE SOUND: CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
 
-    [Header("Lose Animation")]
-    [SerializeField] private float jumpscareDuration = 1.75f;
-    private bool isJumpscaring = false;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -87,6 +86,7 @@ public class EnemyChase : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         patrolStoppingDistance = agent.stoppingDistance;
+        if (animator == null) animator = GetComponentInChildren<Animator>();
     }
 
     private bool CanSeePlayer()
@@ -314,33 +314,61 @@ public class EnemyChase : MonoBehaviour
         waitingAtPoint = false;
         waitTimer = 0f;
         state = EnemyStates.Idle;
-        Debug.Log("enemy recovered and returning to patrol");
+        //Debug.Log("enemy recovered and returning to patrol");
     }
 
     // lose condition player dies
 
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log("enemy collided with something");
+
         if (state == EnemyStates.Inactive) return;
 
         if (other.CompareTag("Player"))
         {
-            agent.isStopped = true; // stop enemy movement
-            GameManager.Instance.LoseGame();
+            //agent.isStopped = true; // stop enemy movement
+            StartCoroutine(JumpscareCoroutine(player));
+            //animator.SetBool("playerJumpscare", true);
+
+            //Debug.Log("caught player");
+
+            //SnapToEnemy(enemyPosition);
+
+            //animator.SetBool("playerJumpscare", true);
+            //GameManager.Instance.LoseGame();
+
         }
     }
 
-    private IEnumerator JumpscareCoroutine()
+    private IEnumerator JumpscareCoroutine(Transform player)
     {
         isJumpscaring = true;
-        
+
         agent.isStopped = true;
         agent.ResetPath();
 
-        state = EnemyStates.Inactive;
-        animator.SetTrigger("Jumpscare");
+        SnapToEnemy(player);
+
+        animator.SetBool("playerJumpscare", true);
+
+        //agent.isStopped = true;
+        //state = EnemyStates.Inactive;
+        //animator.SetTrigger("jumpscare");
         yield return new WaitForSeconds(jumpscareDuration);
         GameManager.Instance.LoseGame(); // load lose scene
+    }
+
+    // make player face snap to enemy
+    private void SnapToEnemy(Transform playerTransform)
+    {
+        Vector3 direction = transform.position - playerTransform.position;
+        direction.y = 0f; // since on xz plane
+        if (direction != Vector3.zero)
+        {
+            playerTransform.rotation = Quaternion.LookRotation(direction);
+        }
+        Debug.Log("player looks at enemy");
     }
 
 }
