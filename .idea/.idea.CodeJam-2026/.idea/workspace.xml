@@ -3,27 +3,19 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakeProjectFlavorService">
-    <option name="flavorId" value="CMakePlainProjectFlavor" />
-  </component>
   <component name="CMakeSettings">
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ea3bf98-0af4-49fa-9f9d-bf93ee72afd4" name="Changes" comment="">
+    <list default="true" id="5d14b6f7-d06a-4c8e-9d95-f377e7978cc1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CodeJam-2026/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraAsset.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraAsset.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraBaseMat.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraBaseMat.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraTexture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CameraTexture.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CashMaterial.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/CashMaterial.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/cashtextureINR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/cashtextureINR.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/stackofCash.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/stackofCash.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Shaders/HLSL/PixelArtQuantize.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Shaders/HLSL/PixelArtQuantize.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Shaders/Pixelate.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Shaders/Pixelate.shadergraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Shaders/Shader Graphs_Pixelate.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Shaders/Shader Graphs_Pixelate.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal/Global Volume Profile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ShaderTestReal/Global Volume Profile.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/DefaultVolumeProfile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/DefaultVolumeProfile.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +25,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="3MOfkS7ZLegW2UC7ZqppjeJPX6z" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3MRjC8PFvnizwdsG3ucta5tJTkj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -53,14 +45,12 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+}]]></component>
+  <component name="RunManager" selected="Standalone Player.Start Unity">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.6f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\Aditya\Documents\GitHub\CodeJam-2026 -debugCodeOptimization" />
@@ -100,13 +90,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5ea3bf98-0af4-49fa-9f9d-bf93ee72afd4" name="Changes" comment="" />
-      <created>1795226682446</created>
+      <changelist id="5d14b6f7-d06a-4c8e-9d95-f377e7978cc1" name="Changes" comment="" />
+      <created>1795320152551</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1795226682446</updated>
-      <workItem from="1795226683161" duration="21000" />
-      <workItem from="1795301869992" duration="3000" />
+      <updated>1795320152551</updated>
     </task>
     <servers />
   </component>
@@ -120,25 +108,4 @@
     <option name="unityProjectFolder" value="true" />
   </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
-  <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>

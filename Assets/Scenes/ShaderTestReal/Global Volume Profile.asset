@@ -139,8 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ColorLookup
   active: 1
   texture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 4a0cefe6276154e43a5b5514839f7735, type: 3}
     dimension: 1
   contribution:
     m_OverrideState: 0
