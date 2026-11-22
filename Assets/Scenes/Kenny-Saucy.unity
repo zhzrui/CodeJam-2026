@@ -29104,9 +29104,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 428513958926835197, guid: a62cc9146c0e27d42aa9ed4817342f1b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a62cc9146c0e27d42aa9ed4817342f1b, type: 3}
       propertyPath: m_Name
       value: CameraAsset
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515467239801319062, guid: a62cc9146c0e27d42aa9ed4817342f1b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
