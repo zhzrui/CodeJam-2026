@@ -16,7 +16,7 @@ public class EnemyChase : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private Light chaseLight;
-
+    [SerializeField] private Animator animator;
 
     // line of sight details
     [Header("Line of Sight")]
@@ -144,6 +144,9 @@ public class EnemyChase : MonoBehaviour
     // PATROLLING THE MAZE - IDLE
     private void Patrol()
     {
+        animator.SetBool("isSearching", false); 
+        animator.SetBool("playerSpotted", false);
+
         if (patrolPoints == null || patrolPoints.Length == 0) return;
 
         //AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic); // force ambiance music
@@ -196,6 +199,7 @@ public class EnemyChase : MonoBehaviour
     {
         // stop patrolling behaviour and start dashing towards player :sob:
         state = EnemyStates.Chasing;
+        animator.SetBool("playerSpotted", true); // chase animation
 
         if (chaseLight != null) chaseLight.enabled = true;
         
@@ -242,6 +246,8 @@ public class EnemyChase : MonoBehaviour
 
     public void Stun()
     {
+        animator.SetBool("isSearching", true); // looking around animation
+
         if (state == EnemyStates.Inactive) return; // ignore if enemy alr stunned
         if (player == null) return;
         // ignore if player not looking at enemy
@@ -279,6 +285,9 @@ public class EnemyChase : MonoBehaviour
      */
     private IEnumerator StunCoroutine(float duration)
     {
+        animator.SetBool("isSearching", false);
+        animator.SetBool("playerSpotted", false);
+
         state = EnemyStates.Inactive; // stun state
         AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
 

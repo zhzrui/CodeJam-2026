@@ -20282,6 +20282,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1126405604}
   angleThreshold: 0.75
   chaseLight: {fileID: 1307518846}
+  animator: {fileID: 1391468967}
   visionDistance: 10
   visionAngle: 360
   obstacleMask:
@@ -22136,6 +22137,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7179a0d652d842bb97e5d113112249f, type: 3}
+--- !u!95 &1391468967 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3079579052710532173, guid: e7179a0d652d842bb97e5d113112249f, type: 3}
+  m_PrefabInstance: {fileID: 1391468966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1397719443
 PrefabInstance:
   m_ObjectHideFlags: 0
