@@ -3283,6 +3283,8 @@ MonoBehaviour:
   lightSource: {fileID: 420406395}
   flashDuration: 0.25
   flashIntensity: 20000
+  flashCooldown: 5
+  cooldownBar: {fileID: 0}
 --- !u!1001 &190421332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21103,6 +21105,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1126405604}
   angleThreshold: 0.75
   chaseLight: {fileID: 1307518846}
+  animator: {fileID: 1351920724}
   visionDistance: 10
   visionAngle: 360
   obstacleMask:
@@ -22479,6 +22482,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1351920724 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3079579052710532173, guid: e7179a0d652d842bb97e5d113112249f, type: 3}
+  m_PrefabInstance: {fileID: 1391468966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1352769996
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class Flashbang : MonoBehaviour
     [SerializeField] private float flashDuration = 0.25f;
     [SerializeField] private float flashIntensity = 500000f;
     [SerializeField] private float flashCooldown = 5f;
+    [SerializeField] private Animator animator;
     private float lastFlashTime;
 
     [Header("UI Cooldown Display")]
@@ -45,6 +46,9 @@ public class Flashbang : MonoBehaviour
             lastFlashTime = Time.time;
             
             AudioManager.Instance.PlaySFX(AudioManager.Instance.cameraSFX);
+            
+            // camera goes close to the screen
+            animator.Play("Picture Time", 0, 0f); 
             
             StartCoroutine(FlashEffect());
             if (enemyChaseScript != null)
