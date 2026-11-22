@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [SerializeField] private int coinsToWin = 10;
+    [SerializeField] private float loseAnimationDuration = 3f; // change to fit anim duration
 
     private int currentCoins = 0;
     private bool gameEnded = false;
@@ -35,7 +37,9 @@ public class GameManager : MonoBehaviour
     public void LoseGame()
     {
         if (gameEnded) return;
+
         gameEnded = true;
         SceneManager.LoadScene("LoseScene");
     }
+
 }
