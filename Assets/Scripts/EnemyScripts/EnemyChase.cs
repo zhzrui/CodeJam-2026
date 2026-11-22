@@ -14,6 +14,10 @@ public class EnemyChase : MonoBehaviour
     private Transform enemyPosition;
     private NavMeshAgent agent;
 
+    [Header("Visuals")]
+    [SerializeField] private Light chaseLight;
+
+
     // line of sight details
     [Header("Line of Sight")]
     [SerializeField] private float visionDistance = 10f;
@@ -58,9 +62,11 @@ public class EnemyChase : MonoBehaviour
     {
         // get enemy position
         enemyPosition = GetComponent<Transform>();
-
         impulseSource = GetComponent<CinemachineImpulseSource>();
+
+        if (chaseLight != null) chaseLight.enabled = false;
     }
+
 
     //ENEMY STATES
     public enum EnemyStates
@@ -113,6 +119,7 @@ public class EnemyChase : MonoBehaviour
         switch (state)
         {
             case EnemyStates.Idle:
+                if (chaseLight != null) chaseLight.enabled = false;
                 if (CanSeePlayer())
                 {
                     StartChase();
@@ -129,6 +136,7 @@ public class EnemyChase : MonoBehaviour
 
             case EnemyStates.Inactive:
                 // no need to write anything here -> gotta check player side
+                if (chaseLight != null) chaseLight.enabled = false;
                 break;
         }
     }
@@ -188,6 +196,8 @@ public class EnemyChase : MonoBehaviour
     {
         // stop patrolling behaviour and start dashing towards player :sob:
         state = EnemyStates.Chasing;
+
+        if (chaseLight != null) chaseLight.enabled = true;
         
         isPatrolling = false;
         waitingAtPoint = false ;
