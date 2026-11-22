@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class Flashbang : MonoBehaviour
 {

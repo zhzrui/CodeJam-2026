@@ -43,30 +43,6 @@ public class EnemyChase : MonoBehaviour
     private float waitTimer = 0f;
     private bool waitingAtPoint = false;
 
-    // searching
-    [Header("Searching Settings")]
-    [SerializeField] private float lostVisionDuration = 5f;
-    private float lostVisionTimer = 0f;
-    [SerializeField] private float searchDuration = 15f;
-    [SerializeField] private float searchRadius = 5f;
-    [SerializeField] private float searchSpeed = 4f;
-    [SerializeField] private float repickInterval = 4f;
-
-    private float searchTimer = 0f;
-    private float repickTimer = 0f;
-    private Vector3 searchCenter;
-    private Vector3 lastKnownPlayerPos;
-
-    // periodic convergence
-    [Header("Convergence")]
-    [SerializeField] private float convergeInterval = 25f; // seconds between rapid convergences
-    [SerializeField] private float convergeSpeed = 7f; // rapid movement speed toward player
-    [SerializeField] private float convergeArrivalDistance = 5f; // distance to hand off from rapid convergence into normal chase
-    [SerializeField] private float maxConvergeDuration = 10f; // safety cap if player can't be reached in time
-
-    private float convergeTimer = 0f;
-    private float convergeElapsed = 0f;
-
     // stun
     // idk we can tweak this
     [Header("Stun (durations)")]
@@ -87,11 +63,10 @@ public class EnemyChase : MonoBehaviour
     {
         // get enemy position
         enemyPosition = GetComponent<Transform>();
-        impulseSource = GetComponent<CinemachineImpulseSource>();
 
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         if (chaseLight != null) chaseLight.enabled = false;
     }
-
 
     //ENEMY STATES
     public enum EnemyStates
@@ -99,7 +74,6 @@ public class EnemyChase : MonoBehaviour
         Idle,
         Chasing,
         Searching,
-        Converging,
         Inactive
     }
 
@@ -142,17 +116,6 @@ public class EnemyChase : MonoBehaviour
         //}
         if (!agent.isOnNavMesh) return;
 
-        // count down to next rapid convergence while active and not already converging
-        if (state != EnemyStates.Inactive && state != EnemyStates.Converging && player != null)
-        {
-            convergeTimer += Time.deltaTime;
-            if (convergeTimer >= convergeInterval)
-            {
-                StartConvergence();
-                return;
-            }
-        }
-
         switch (state)
         {
             case EnemyStates.Idle:
@@ -174,14 +137,6 @@ public class EnemyChase : MonoBehaviour
             case EnemyStates.Inactive:
                 // no need to write anything here -> gotta check player side
                 if (chaseLight != null) chaseLight.enabled = false;
-                break;
-
-            case EnemyStates.Searching:
-                Searching();
-                break;
-
-            case EnemyStates.Converging:
-                Converge();
                 break;
         }
     }
@@ -241,13 +196,9 @@ public class EnemyChase : MonoBehaviour
     {
         // stop patrolling behaviour and start dashing towards player :sob:
         state = EnemyStates.Chasing;
-        lostVisionTimer = lostVisionDuration;
-        if (player != null) lastKnownPlayerPos = player.position;
-
-        if (chaseLight != null) chaseLight.enabled = true;
         
         isPatrolling = false;
-        waitingAtPoint = false;
+        waitingAtPoint = false ;
         waitTimer = 0f;
 
         agent.isStopped = false;
@@ -265,93 +216,24 @@ public class EnemyChase : MonoBehaviour
     private void Chase()
     {
         if (player == null) return;
-
+        agent.SetDestination(player.position); // keep updating player's position
+        
         // shake camera on an interval
+
         if (Time.time - lastShakeTime >= shakeInterval)
         {
             CameraShakeManager.Instance.CameraShake(impulseSource, 1f);
             lastShakeTime = Time.time;
         }
 
-        if (CanSeePlayer())
-        {
-            lostVisionTimer = lostVisionDuration; // reset timer if player is seen again
-            lastKnownPlayerPos = player.position;
-            agent.SetDestination(player.position); // keep updating player's position
-        }
-        else
-        {
-            agent.SetDestination(lastKnownPlayerPos); // head to last known position while grace timer counts down
-            lostVisionTimer -= Time.deltaTime;
-
-            if (lostVisionTimer <= 0f)
-            {
-                // lost sight of player, go to searching state
-                EnterSearching(lastKnownPlayerPos);
-                Debug.Log("lost sight of player, now searching");
-            }
-        }
+        //if (!isChaseMusicPlaying)
+        //{
+        //    AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic);
+        //    isChaseMusicPlaying = true;
+        //}
 
         //AudioManager.Instance.PlayMusic(AudioManager.Instance.chaseMusic); // chase music on a longer timer
-    }
 
-    // CONVERGING
-    private void StartConvergence()
-    {
-        if (player == null) return;
-
-        state = EnemyStates.Converging;
-        convergeTimer = 0f; // reset 40s cycle timer
-        convergeElapsed = 0f;
-
-        if (chaseLight != null) chaseLight.enabled = true;
-
-        isPatrolling = false;
-        waitingAtPoint = false;
-        waitTimer = 0f;
-
-        agent.isStopped = false;
-        agent.speed = convergeSpeed;
-        agent.stoppingDistance = stoppingDistance;
-
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.screamSFX); // alert sound when converging
-        agent.SetDestination(player.position);
-        Debug.Log("enemy converging rapidly on player");
-    }
-
-    private void Converge()
-    {
-        if (player == null)
-        {
-            EnterSearching(transform.position);
-            return;
-        }
-
-        convergeElapsed += Time.deltaTime;
-        agent.SetDestination(player.position); // continuously track player during convergence
-
-        // shake camera on an interval while converging rapidly
-        if (Time.time - lastShakeTime >= shakeInterval)
-        {
-            CameraShakeManager.Instance.CameraShake(impulseSource, 1.5f);
-            lastShakeTime = Time.time;
-        }
-
-        float distToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distToPlayer <= convergeArrivalDistance)
-        {
-            // close enough after rapid burst: hand off directly into normal chase
-            Debug.Log("converged on player, switching to chase");
-            StartChase();
-            return;
-        }
-
-        if (convergeElapsed >= maxConvergeDuration)
-        {
-            // safety exit if player couldn't be reached before timeout: transition into chase
-            Debug.Log("convergence timed out, switching to chase");
-            StartChase();
-        }
     }
 
     // STUN
@@ -388,10 +270,10 @@ public class EnemyChase : MonoBehaviour
     }
 
     /*
-- 1. stop enemy immediately
-- 2. wait for stun to expire
-- 3. recover
-- 4. potentially reset patrol state
+     * 1. stop enemy immediately
+     * 2. wait for stun to expire
+     * 3. recover
+     * 4. potentially reset patrol state
      */
     private IEnumerator StunCoroutine(float duration)
     {
@@ -406,78 +288,18 @@ public class EnemyChase : MonoBehaviour
         // wait for stun to be over
         yield return new WaitForSeconds(duration);
 
-        // recover and start searching around player
-        Vector3 center = player != null ? player.position : transform.position;
-        EnterSearching(center);
-        Debug.Log("enemy recovered and searching around player");
-    }
+        // recover
+        agent.isStopped = false;
+        agent.speed = patrolSpeed;
+        agent.stoppingDistance = patrolStoppingDistance;
 
-    private void EnterSearching(Vector3 center)
-    {
-        state = EnemyStates.Searching;
-        searchCenter = center; // set search center to player's last known position
-        searchTimer = 0f;
-        repickTimer = 0f;
-
+        // reset
         isPatrolling = false;
         waitingAtPoint = false;
         waitTimer = 0f;
-
-        agent.isStopped = false;
-        agent.speed = searchSpeed;
-        agent.stoppingDistance = patrolStoppingDistance;
-
-        PickNextSearchPoint();
+        state = EnemyStates.Idle;
+        Debug.Log("enemy recovered and returning to patrol");
     }
 
-    private void PickNextSearchPoint()
-    {
-        // pick a new random point within the search radius on the horizontal plane
-        for (int i = 0; i < 10; i++)
-        {
-            Vector2 circle = Random.insideUnitCircle * searchRadius;
-            Vector3 candidate = new Vector3(searchCenter.x + circle.x, searchCenter.y, searchCenter.z + circle.y);
 
-            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
-            {
-                agent.SetDestination(hit.position);
-                repickTimer = 0f; // reset repick timer
-                Debug.Log("searching for player, moving to new random point");
-                return;
-            }
-        }
-    }
-
-    private void Searching()
-    {
-        if (state != EnemyStates.Searching) return;
-        Debug.Log("enemy searching for player");
-
-        if (CanSeePlayer())
-        {
-            StartChase();
-            return;
-        }
-
-        searchTimer += Time.deltaTime;
-        repickTimer += Time.deltaTime;
-
-        if (searchTimer >= searchDuration)
-        {
-            // search duration over, return to idle
-            state = EnemyStates.Idle;
-            agent.speed = patrolSpeed;
-            agent.stoppingDistance = patrolStoppingDistance;
-            isPatrolling = false;
-            waitingAtPoint = false;
-            waitTimer = 0f;
-            Debug.Log("search duration over, returning to idle");
-            return;
-        }
-
-        if (repickTimer >= repickInterval)
-        {
-            PickNextSearchPoint();
-        }
-    }
 }
