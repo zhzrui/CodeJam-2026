@@ -21154,7 +21154,6 @@ MonoBehaviour:
   maxStunDuration: 5
   maxStunDistance: 10
   shakeInterval: 0.5
-  jumpscareDuration: 1.75
 --- !u!195 &1263420742
 NavMeshAgent:
   m_ObjectHideFlags: 0
