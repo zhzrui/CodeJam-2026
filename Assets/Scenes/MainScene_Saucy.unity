@@ -3354,7 +3354,7 @@ MonoBehaviour:
   lightSource: {fileID: 420406395}
   flashDuration: 0.25
   flashIntensity: 20000
-  flashCooldown: 5
+  flashCooldown: 10
   animator: {fileID: 1934613403}
   cooldownBar: {fileID: 1909551439}
 --- !u!1001 &190421332
@@ -22890,7 +22890,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  chaseSpeed: 4.5
+  chaseSpeed: 5
   stoppingDistance: 0
   patrolPoints:
   - {fileID: 652066982}
@@ -23561,7 +23561,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 50
+  m_Intensity: 30
   m_Range: 10
   m_SpotAngle: 70
   m_InnerSpotAngle: 60
